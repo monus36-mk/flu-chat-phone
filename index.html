@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile App Interface</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(to right, #ff1b6b 0%, #ff1b6b 17%, #fef5f7 17%, #fef5f7 83%, #ff1b6b 83%, #ff1b6b 100%);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .phone-container {
+            width: 375px;
+            height: 667px;
+            background: #fef5f7;
+            border-radius: 0;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .header {
+            padding: 20px;
+            background: #fef5f7;
+        }
+
+        .search-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .search-box {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            background: white;
+            border: 2px solid #ffcce0;
+            border-radius: 25px;
+            padding: 12px 20px;
+            box-shadow: 0 4px 15px rgba(255, 27, 107, 0.1);
+        }
+
+        .search-icon {
+            width: 24px;
+            height: 24px;
+            stroke: #999;
+            stroke-width: 2;
+            fill: none;
+            margin-right: 10px;
+        }
+
+        .search-box input {
+            flex: 1;
+            border: none;
+            outline: none;
+            font-size: 18px;
+            color: #333;
+            background: transparent;
+        }
+
+        .search-box input::placeholder {
+            color: #aaa;
+        }
+
+        .filter-icon {
+            width: 28px;
+            height: 28px;
+            stroke: #333;
+            stroke-width: 2;
+            fill: none;
+        }
+
+        
+        
+
+        .menu-icon span {
+            height: 3px;
+            background: #333;
+            border-radius: 2px;
+            transition: all 0.3s;
+        }
+
+        .menu-icon span:nth-child(1) {
+            width: 100%;
+        }
+
+        .menu-icon span:nth-child(2) {
+            width: 75%;
+        }
+
+        .menu-icon span:nth-child(3) {
+            width: 50%;
+        }
+
+        .content {
+            flex: 1;
+            background: #fdaaefbb;
+        }
+
+        .bottom-nav {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 20px;
+            background: #fef5f7;
+            border-top: 1px solid #ffe6f0;
+        }
+
+        .nav-item {
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .nav-item:active {
+            transform: scale(0.95);
+        }
+
+        .nav-icon {
+            width: 30px;
+            height: 32px;
+            stroke: #333;
+            stroke-width: 2;
+            fill: none;
+        }
+
+        .nav-icon.messages {
+            width: 33px;
+            height: 36px;
+        }
+
+        .nav-icon.profile {
+            fill: #333;
+            stroke: none;
+            width:30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="phone-container">
+        <div class="header">
+            <div class="search-container">
+                <div class="search-box">
+                    <svg class="search-icon" viewBox="0 0 24 24">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                    <input type="text" placeholder="Search">
+                    <svg class="filter-icon" viewBox="0 0 24 24">
+                        <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+                    </svg>
+                </div>
+                <div class="menu-icon">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="content">
+            <!-- Main content area -->
+        </div>
+
+        <div class="bottom-nav">
+            <div class="nav-item">
+                <svg class="nav-icon" viewBox="0 0 24 24">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+            </div>
+            <div class="nav-item">
+                <svg class="nav-icon messages" viewBox="0 0 24 24">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                    <path d="M14 3v4a2 2 0 0 0 2 2h4"></path>
+                </svg>
+            </div>
+            <div class="nav-item">
+                <svg class="nav-icon profile" viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <circle cx="12" cy="9" r="3" fill="#fef5f7"></circle>
+                    <path d="M6.5 18a6.5 6.5 0 0 1 11 0" fill="#fef5f7" stroke="#333"></path>
+                </svg>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

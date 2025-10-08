@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat App Interface</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #ff1b98 0%, #a020f0 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .phone-container {
+            width: 420px;
+            background: linear-gradient(135deg, #ff1b98 0%, #8b20f0 100%);
+            border-radius: 30px;
+            padding: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        }
+
+        .header {
+            margin-bottom: 20px;
+        }
+
+        .search-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .search-box {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            background: white;
+            border-radius: 30px;
+            padding: 15px 25px;
+            box-shadow: 0 8px 20px rgba(255, 255, 255, 0.3);
+        }
+
+        .search-icon {
+            width: 24px;
+            height: 24px;
+            stroke: #888;
+            stroke-width: 2.5;
+            fill: none;
+            margin-right: 12px;
+        }
+
+        .search-box input {
+            flex: 1;
+            border: none;
+            outline: none;
+            font-size: 18px;
+            color: #888;
+            background: transparent;
+        }
+
+        .search-box input::placeholder {
+            color: #aaa;
+        }
+
+        .filter-icon {
+            width: 26px;
+            height: 26px;
+            stroke: #666;
+            stroke-width: 2;
+            fill: none;
+        }
+
+        .menu-icon {
+            width: 35px;
+            height: 35px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .menu-icon span {
+            height: 4px;
+            background: #000;
+            border-radius: 3px;
+        }
+
+        .menu-icon span:nth-child(1) {
+            width: 100%;
+        }
+
+        .menu-icon span:nth-child(2) {
+            width: 75%;
+        }
+
+        .menu-icon span:nth-child(3) {
+            width: 50%;
+        }
+
+        .content {
+            background: #1a1a1a;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 20px;
+            min-height: 550px;
+        }
+
+        .interests-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .interests-title {
+            color: white;
+            font-size: 22px;
+            font-weight: 500;
+        }
+
+        .interests-status {
+            color: #4caf50;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+
+        .manage-btn {
+            color: #ccc;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .interests-box {
+            border: 2px dashed #555;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .interest-tags {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background: #2a2a2a;
+            color: #ccc;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-size: 16px;
+        }
+
+        .interest-message {
+            color: #888;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        .gender-section {
+            margin-bottom: 30px;
+        }
+
+        .gender-title {
+            color: white;
+            font-size: 22px;
+            font-weight: 500;
+            margin-bottom: 25px;
+        }
+
+        .gender-options {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .gender-option {
+            background: #2a2a2a;
+            border: 2px solid #444;
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .gender-option.selected {
+            border-color: #6c5ce7;
+            background: #2a2540;
+        }
+
+        .gender-icon {
+            width: 45px;
+            height: 45px;
+            margin: 0 auto 12px;
+        }
+
+        .gender-option.male .gender-icon {
+            color: #5dade2;
+        }
+
+        .gender-option.female .gender-icon {
+            color: #ff69b4;
+        }
+
+        .gender-option.both .gender-icon {
+            color: #999;
+        }
+
+        .gender-label {
+            color: white;
+            font-size: 18px;
+        }
+
+        .gender-label.male {
+            color: #5dade2;
+        }
+
+        .gender-label.female {
+            color: #ff69b4;
+        }
+
+        .location-marker {
+            position: absolute;
+            width: 35px;
+            height: 35px;
+            background: #ff6b35;
+            border-radius: 50% 50% 50% 0;
+            transform: rotate(-45deg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .location-marker::after {
+            content: '';
+            width: 12px;
+            height: 12px;
+            background: white;
+            border-radius: 50%;
+            transform: rotate(45deg);
+        }
+
+        .location-marker.left {
+            top: -15px;
+            left: 50px;
+        }
+
+        .location-marker.right {
+            top: -15px;
+            right: 50px;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .video-btn {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #ff6b35, #ff8c42);
+            border: none;
+            border-radius: 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.4);
+        }
+
+        .video-icon {
+            width: 35px;
+            height: 35px;
+            fill: white;
+        }
+
+        .chat-btn {
+            flex: 1;
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+            border: none;
+            border-radius: 18px;
+            padding: 20px;
+            color: white;
+            font-size: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            box-shadow: 0 4px 15px rgba(108, 92, 231, 0.4);
+        }
+
+        .chat-icon {
+            width: 30px;
+            height: 30px;
+            fill: white;
+        }
+
+        .bottom-nav {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 15px 20px;
+        }
+
+        .nav-item {
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .nav-item:active {
+            transform: scale(0.95);
+        }
+
+        .nav-icon {
+            width: 40px;
+            height: 40px;
+            stroke: #000;
+            stroke-width: 2.5;
+            fill: none;
+        }
+
+        .nav-icon.messages {
+            width: 45px;
+            height: 45px;
+            fill: #000;
+        }
+
+        .nav-icon.profile {
+            fill: #000;
+            stroke: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="phone-container">
+        <div class="header">
+            <div class="search-container">
+                <div class="search-box">
+                    <svg class="search-icon" viewBox="0 0 24 24">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                    <input type="text" placeholder="Search">
+                    <svg class="filter-icon" viewBox="0 0 24 24">
+                        <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+                    </svg>
+                </div>
+                <div class="menu-icon">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="interests-header">
+                <div>
+                    <span class="interests-title">Your Interests</span>
+                    <span class="interests-status">(ON)</span>
+                </div>
+                <span class="manage-btn">Manage</span>
+            </div>
+
+            <div class="interests-box">
+                <div class="interest-tags">
+                    <span class="tag">Reading</span>
+                    <span class="tag">Fitness</span>
+                    <span class="tag">Art</span>
+                </div>
+                <p class="interest-message">You have no interests. Click to add some.</p>
+            </div>
+
+            <div class="gender-section">
+                <h2 class="gender-title">Gender Filter:</h2>
+                
+                <div class="gender-options">
+                    <div class="location-marker left"></div>
+                    <div class="location-marker right"></div>
+                    
+                    <div class="gender-option male">
+                        <div class="gender-icon">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,8.5A2,2 0 0,1 14,10.5A2,2 0 0,1 12,12.5A2,2 0 0,1 10,10.5A2,2 0 0,1 12,8.5M12,17C13.75,17 15.29,16.25 16.29,15.05C15.39,14.05 14.12,13.5 12,13.5C9.88,13.5 8.61,14.05 7.71,15.05C8.71,16.25 10.25,17 12,17Z"/>
+                            </svg>
+                        </div>
+                        <div class="gender-label male">Male</div>
+                    </div>
+
+                    <div class="gender-option both selected">
+                        <div class="gender-icon">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,8.5A2,2 0 0,1 14,10.5A2,2 0 0,1 12,12.5A2,2 0 0,1 10,10.5A2,2 0 0,1 12,8.5M12,17C13.75,17 15.29,16.25 16.29,15.05C15.39,14.05 14.12,13.5 12,13.5C9.88,13.5 8.61,14.05 7.71,15.05C8.71,16.25 10.25,17 12,17Z"/>
+                            </svg>
+                        </div>
+                        <div class="gender-label">Both</div>
+                    </div>
+
+                    <div class="gender-option female">
+                        <div class="gender-icon">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,8.5A2,2 0 0,1 14,10.5A2,2 0 0,1 12,12.5A2,2 0 0,1 10,10.5A2,2 0 0,1 12,8.5M12,17C13.75,17 15.29,16.25 16.29,15.05C15.39,14.05 14.12,13.5 12,13.5C9.88,13.5 8.61,14.05 7.71,15.05C8.71,16.25 10.25,17 12,17Z"/>
+                            </svg>
+                        </div>
+                        <div class="gender-label female">Female</div>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="video-btn">
+                        <svg class="video-icon" viewBox="0 0 24 24">
+                            <path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/>
+                        </svg>
+                    </button>
+                    <button class="chat-btn">
+                        <svg class="chat-icon" viewBox="0 0 24 24">
+                            <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/>
+                        </svg>
+                        Start Text Chat
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="bottom-nav">
+            <div class="nav-item">
+                <svg class="nav-icon" viewBox="0 0 24 24">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+            </div>
+            <div class="nav-item" onclick="window.location.href='chat.html'">
+                <svg class="nav-icon messages" viewBox="0 0 24 24">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                    <path d="M14 3v4a2 2 0 0 0 2 2h4"></path>
+                </svg>
+            </div>
+            
+            <div class="nav-item">
+                <svg class="nav-icon profile" viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <circle cx="12" cy="9" r="3" fill="transparent" stroke="#000" stroke-width="2"></circle>
+                    <path d="M6.5 18a6.5 6.5 0 0 1 11 0" fill="transparent" stroke="#000" stroke-width="2"></path>
+                </svg>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
